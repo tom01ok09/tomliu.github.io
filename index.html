@@ -150,6 +150,67 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/03/16/Taking-very-long-time-from-Azure-SSIS-IR-to-download-Blob-storage-files/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tom Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tom's Note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/16/Taking-very-long-time-from-Azure-SSIS-IR-to-download-Blob-storage-files/" class="post-title-link" itemprop="url">Taking very long time from Azure SSIS-IR to download Blob storage files</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-03-16 09:43:50 / Modified: 09:43:51" itemprop="dateCreated datePublished" datetime="2024-03-16T09:43:50+08:00">2024-03-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><p>Taking very long time from Azure SSIS-IR to download Blob storage files</p>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p>Observe the bottleneck: Azure Blob Download took approximate 1 hour.<br><img src="/2024/03/16/Taking-very-long-time-from-Azure-SSIS-IR-to-download-Blob-storage-files/Snipaste_2024-03-07_09-52-02.png" alt="SSIS Report"></p>
+<h2 id="Narrowdown"><a href="#Narrowdown" class="headerlink" title="Narrowdown"></a>Narrowdown</h2><p>Created a VM joined the same VNET with Azure SSIS-IR.<br>Using Azure Storage Explorer to download files and it only takes 4 seconds.<br>Running the SSIS package via SSDT on the VM and it only takes 3 seconds to complete.<br><img src="/2024/03/16/Taking-very-long-time-from-Azure-SSIS-IR-to-download-Blob-storage-files/Snipaste_2024-03-07_11-07-56.png" alt="VS Progress"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/03/06/Login-failed-for-user-NT-AUTHORITY-ANONYMOUS-LOGON/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -469,7 +530,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
