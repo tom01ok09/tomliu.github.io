@@ -150,6 +150,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/03/16/Operating-system-error-code-5-Access-is-denied/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tom Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tom's Note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/16/Operating-system-error-code-5-Access-is-denied/" class="post-title-link" itemprop="url">Operating system error code 5(Access is denied.)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-03-16 19:59:42 / Modified: 23:44:16" itemprop="dateCreated datePublished" datetime="2024-03-16T19:59:42+08:00">2024-03-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Cannot bulk load because the file &quot;\\10.3.0.6\Share_Test\test.csv&quot; could not be opened. Operating system error code 5(Access is denied.).&quot;.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/03/16/Operating-system-error-code-5-Access-is-denied/Snipaste_2024-03-16_20-19-26.png" alt="VS Progress Screenshot"><br><img src="/2024/03/16/Operating-system-error-code-5-Access-is-denied/Snipaste_2024-03-16_20-26-55.png" alt="SSIS Error Report"></p>
+<h2 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h2><p>From Server1 (VM02) uses Windows Authentication to login to Server2 (tom-sqlserver-2) and then, execute SQL command: Bulk Insert from file share in Server1 (VM02), then, the issue happened. Mainly because of the “delegation” issue.</p>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p>Reproduce the issue using SQL BULK Insert Command<br><img src="/2024/03/16/Operating-system-error-code-5-Access-is-denied/Snipaste_2024-03-16_20-34-31.png" alt="Reproduce the issue using SQL BULK Insert Command"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BULK <span class="keyword">INSERT</span> [dbo].[twcities]</span><br><span class="line"><span class="keyword">FROM</span> <span class="string">&#x27;\\10.3.0.6\Share_Test\test.csv&#x27;</span> </span><br><span class="line"><span class="keyword">WITH</span>(CHECK_CONSTRAINTS,CODEPAGE<span class="operator">=</span><span class="string">&#x27;RAW&#x27;</span>,DATAFILETYPE<span class="operator">=</span><span class="string">&#x27;char&#x27;</span>,FIELDTERMINATOR<span class="operator">=</span><span class="string">&#x27;,&#x27;</span>,ROWTERMINATOR<span class="operator">=</span><span class="string">&#x27;\n&#x27;</span>,FIRSTROW<span class="operator">=</span><span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Capture Process Monitor in tom-sqlserver-2<br><img src="/2024/03/16/Operating-system-error-code-5-Access-is-denied/Snipaste_2024-03-16_20-53-30.png" alt="Capture Process Monitor in tom-sqlserver-2"></p>
+<h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p><code>Use Host Name instead of IP:</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BULK <span class="keyword">INSERT</span> [dbo].[twcities]</span><br><span class="line"><span class="keyword">FROM</span> <span class="string">&#x27;\\VM02\Share_Test\test.csv&#x27;</span> </span><br><span class="line"><span class="keyword">WITH</span>(CHECK_CONSTRAINTS,CODEPAGE<span class="operator">=</span><span class="string">&#x27;RAW&#x27;</span>,DATAFILETYPE<span class="operator">=</span><span class="string">&#x27;char&#x27;</span>,FIELDTERMINATOR<span class="operator">=</span><span class="string">&#x27;,&#x27;</span>,ROWTERMINATOR<span class="operator">=</span><span class="string">&#x27;\n&#x27;</span>,FIRSTROW<span class="operator">=</span><span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>Delegation Setting:</code></p>
+<p>Reference:<br><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/sql-server-support-blog/bulk-insert-and-kerberos/ba-p/317304">Bulk Insert and Kerberos</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/03/16/Taking-very-long-time-from-Azure-SSIS-IR-to-download-Blob-storage-files/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -405,7 +476,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-04 12:59:52" itemprop="dateModified" datetime="2024-03-04T12:59:52+08:00">2024-03-04</time>
+                <time title="Modified: 2024-04-14 14:10:00" itemprop="dateModified" datetime="2024-04-14T14:10:00+08:00">2024-04-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -444,10 +515,15 @@
 <p><strong>Found below error log:</strong></p>
 <p><em>Create Process failed. Exception&#x3D;Microsoft.SqlServer.IntegrationServices.ScaleOut.Utilities.Credential.CreateProcessException: CreateProcessAsUser return false. cmd&#x3D;’”C:\Program Files\Microsoft Integration Runtime\5.0\CommonExtensions\Microsoft\SSIS\140\Binn\ISServerExec.exe” &#x2F;operation:execute &#x2F;OperationMode:InWorker &#x2F;Guid:6aa17f52-9be2-4921-9033-014b460892fb &#x2F;OperationID:1’, workDirectory&#x3D;’C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\work’, domain&#x3D;’TOM’, user&#x3D;’sql_login_2’, errorCode&#x3D;’1314’.</em></p>
 <h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p><strong>On-premises staging tasks on the SHIR require Windows authentication and on-premises staging tasks will be invoked with the SHIR service account.</strong></p>
-<p>SHIR service account:</p>
-<p>Assign the Adjust memory quotas for a process<br>Assign the Replace a process level token policies<br>Restart the service</p>
-<p>Windows Authentication account:</p>
-<p>Assing the Log on as a service policy</p>
+<ul>
+<li><p>SHIR service account:</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Assign the Adjust memory quotas for a process</span><br><span class="line">Assign the Replace a process level token policies</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Restart the service</p>
+</li>
+<li><p>Windows Authentication account:</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Assing the Log on as a service policy</span><br></pre></td></tr></table></figure></li>
+</ul>
 <p>Reference:<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/data-factory/ssis-integration-runtime-ssis-activity-faq#error-message-timeout-when-reading-from-staging">Error message: “Timeout when reading from staging”</a><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/data-factory/self-hosted-integration-runtime-proxy-ssis#enable-windows-authentication-for-on-premises-tasks">Enable Windows authentication for on-premises tasks</a></p>
 
       
@@ -530,7 +606,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -542,7 +618,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
