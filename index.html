@@ -150,6 +150,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tom Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tom's Note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/" class="post-title-link" itemprop="url">DataFactoryPropertyUpdateNotSupported: Updating property type is not supported.</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-04-19 09:13:11" itemprop="dateCreated datePublished" datetime="2024-04-19T09:13:11+08:00">2024-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-04-20 12:18:17" itemprop="dateModified" datetime="2024-04-20T12:18:17+08:00">2024-04-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><p><img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/image006.png" alt="Updateing property type is not supported"></p>
+<h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p>Use one ADF to share with other ADFs which need to have CICD flow:</p>
+<p>The ADF which has the SHIR and share with other Data Factories.<br><img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_10-47-36.png" alt="tom-case1202-adf"></p>
+<p>Linked SHIR</p>
+<ul>
+<li>DEV<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_12-17-58.png" alt="tom-adf-cicd-dev"></li>
+<li>UAT<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-19-37.png" alt="tom-adf-cicd-uat"></li>
+</ul>
+<p>Git Configuration</p>
+<ul>
+<li>Git configuration<br>ADF Studio<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-22-19.png" alt="tom-case1202-adf"><br>Azure DevOps Release Pipeline<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-42-31.png" alt="Release Pipeline Artifacts"><br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-59-38.png" alt="Release Pipeline Stages"></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/03/16/Operating-system-error-code-5-Access-is-denied/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -513,7 +589,8 @@
 <h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p><strong>Checking the log in the:</strong></p>
 <p>C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a</p>
 <p><strong>Found below error log:</strong></p>
-<p><em>Create Process failed. Exception&#x3D;Microsoft.SqlServer.IntegrationServices.ScaleOut.Utilities.Credential.CreateProcessException: CreateProcessAsUser return false. cmd&#x3D;’”C:\Program Files\Microsoft Integration Runtime\5.0\CommonExtensions\Microsoft\SSIS\140\Binn\ISServerExec.exe” &#x2F;operation:execute &#x2F;OperationMode:InWorker &#x2F;Guid:6aa17f52-9be2-4921-9033-014b460892fb &#x2F;OperationID:1’, workDirectory&#x3D;’C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\work’, domain&#x3D;’TOM’, user&#x3D;’sql_login_2’, errorCode&#x3D;’1314’.</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Create Process failed. Exception=Microsoft.SqlServer.IntegrationServices.ScaleOut.Utilities.Credential.CreateProcessException: CreateProcessAsUser return false. cmd=&#x27;&quot;C:\Program Files\Microsoft Integration Runtime\5.0\CommonExtensions\Microsoft\SSIS\140\Binn\ISServerExec.exe&quot; /operation:execute /OperationMode:InWorker /Guid:6aa17f52-9be2-4921-9033-014b460892fb /OperationID:1&#x27;, workDirectory=&#x27;C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\work&#x27;, domain=&#x27;TOM&#x27;, user=&#x27;sql_login_2&#x27;, errorCode=&#x27;1314&#x27;.</span><br></pre></td></tr></table></figure>
+
 <h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p><strong>On-premises staging tasks on the SHIR require Windows authentication and on-premises staging tasks will be invoked with the SHIR service account.</strong></p>
 <ul>
 <li><p>SHIR service account:</p>
@@ -606,7 +683,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -618,7 +695,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

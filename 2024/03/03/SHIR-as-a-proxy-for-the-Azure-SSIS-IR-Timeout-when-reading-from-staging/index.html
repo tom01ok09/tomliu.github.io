@@ -227,7 +227,8 @@
 <h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p><strong>Checking the log in the:</strong></p>
 <p>C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a</p>
 <p><strong>Found below error log:</strong></p>
-<p><em>Create Process failed. Exception&#x3D;Microsoft.SqlServer.IntegrationServices.ScaleOut.Utilities.Credential.CreateProcessException: CreateProcessAsUser return false. cmd&#x3D;’”C:\Program Files\Microsoft Integration Runtime\5.0\CommonExtensions\Microsoft\SSIS\140\Binn\ISServerExec.exe” &#x2F;operation:execute &#x2F;OperationMode:InWorker &#x2F;Guid:6aa17f52-9be2-4921-9033-014b460892fb &#x2F;OperationID:1’, workDirectory&#x3D;’C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\work’, domain&#x3D;’TOM’, user&#x3D;’sql_login_2’, errorCode&#x3D;’1314’.</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Create Process failed. Exception=Microsoft.SqlServer.IntegrationServices.ScaleOut.Utilities.Credential.CreateProcessException: CreateProcessAsUser return false. cmd=&#x27;&quot;C:\Program Files\Microsoft Integration Runtime\5.0\CommonExtensions\Microsoft\SSIS\140\Binn\ISServerExec.exe&quot; /operation:execute /OperationMode:InWorker /Guid:6aa17f52-9be2-4921-9033-014b460892fb /OperationID:1&#x27;, workDirectory=&#x27;C:\ProgramData\SSISTelemetry\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\4633fb0b-0c8a-43c4-99fc-e240afd2c14a\work&#x27;, domain=&#x27;TOM&#x27;, user=&#x27;sql_login_2&#x27;, errorCode=&#x27;1314&#x27;.</span><br></pre></td></tr></table></figure>
+
 <h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p><strong>On-premises staging tasks on the SHIR require Windows authentication and on-premises staging tasks will be invoked with the SHIR service account.</strong></p>
 <ul>
 <li><p>SHIR service account:</p>
@@ -342,7 +343,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -354,7 +355,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
