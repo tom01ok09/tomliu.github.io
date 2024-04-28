@@ -150,6 +150,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/04/20/ADF-CI-CD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tom Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tom's Note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/20/ADF-CI-CD/" class="post-title-link" itemprop="url">ADF CI/CD</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-04-20 22:10:04" itemprop="dateCreated datePublished" datetime="2024-04-20T22:10:04+08:00">2024-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-04-28 10:09:55" itemprop="dateModified" datetime="2024-04-28T10:09:55+08:00">2024-04-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Automated-publishing-for-CI-CD"><a href="#Automated-publishing-for-CI-CD" class="headerlink" title="Automated publishing for CI&#x2F;CD"></a>Automated publishing for CI&#x2F;CD</h2><p>Takes the <strong>Validate all</strong> and <strong>Export ARM template</strong> features from the Data Factory user experience and makes the logic consumable via a publicly available npm package <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@microsoft/azure-data-factory-utilities">@microsoft&#x2F;azure-data-factory-utilities</a>.</p>
+<h3 id="Export-ARM-template"><a href="#Export-ARM-template" class="headerlink" title="Export ARM template"></a>Export ARM template</h3><p>Run <code>npm run build export &lt;rootFolder&gt; &lt;factoryId&gt; [outputFolder]</code> to export the ARM template by using </p>
+<h4 id="Create-an-Azure-pipeline"><a href="#Create-an-Azure-pipeline" class="headerlink" title="Create an Azure pipeline"></a>Create an Azure pipeline</h4><p><strong>package.json</strong><br><img src="/2024/04/20/ADF-CI-CD/Snipaste_2024-04-27_10-00-27.png" alt="package.json"></p>
+<p><strong>Azure pipeline</strong><br><img src="/2024/04/20/ADF-CI-CD/Snipaste_2024-04-27_10-31-20.png" alt="Azure pipeline"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Starter pipeline</span></span><br><span class="line"><span class="comment"># Start with a minimal pipeline that you can customize to build and deploy your code.</span></span><br><span class="line"><span class="comment"># Add steps that build, run tests, deploy, and more:</span></span><br><span class="line"><span class="comment"># https://aka.ms/yaml</span></span><br><span class="line"></span><br><span class="line"><span class="attr">trigger:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">main</span> </span><br><span class="line"></span><br><span class="line"><span class="attr">pool:</span></span><br><span class="line">  <span class="attr">vmImage:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line"><span class="attr">steps:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installs Node and the npm packages saved in your package.json file in the build</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">task:</span> <span class="string">NodeTool@0</span></span><br><span class="line">  <span class="attr">inputs:</span></span><br><span class="line">    <span class="attr">versionSpec:</span> <span class="string">&#x27;14.x&#x27;</span></span><br><span class="line">  <span class="attr">displayName:</span> <span class="string">&#x27;Install Node.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">task:</span> <span class="string">Npm@1</span></span><br><span class="line">  <span class="attr">inputs:</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">&#x27;install&#x27;</span></span><br><span class="line">    <span class="attr">workingDir:</span> <span class="string">&#x27;$(Build.Repository.LocalPath)&#x27;</span> <span class="comment">#replace with the package.json folder</span></span><br><span class="line">    <span class="attr">verbose:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">displayName:</span> <span class="string">&#x27;Install npm package&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Validates all of the Data Factory resources in the repository. You&#x27;ll get the same validation errors as when &quot;Validate All&quot; is selected.</span></span><br><span class="line"><span class="comment"># Enter the appropriate subscription and name for the source factory.</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">task:</span> <span class="string">Npm@1</span></span><br><span class="line">  <span class="attr">inputs:</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">&#x27;custom&#x27;</span></span><br><span class="line">    <span class="attr">workingDir:</span> <span class="string">&#x27;$(Build.Repository.LocalPath)&#x27;</span> <span class="comment">#replace with the package.json folder</span></span><br><span class="line">    <span class="attr">customCommand:</span> <span class="string">&#x27;run build validate $(Build.Repository.LocalPath) /subscriptions/b0d9c807-a2f1-4580-99a8-5333e4ad63c8/resourceGroups/lab_tom_adf_learning/providers/Microsoft.DataFactory/factories/tomADFLearning202211&#x27;</span></span><br><span class="line">  <span class="attr">displayName:</span> <span class="string">&#x27;Validate&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">task:</span> <span class="string">Npm@1</span></span><br><span class="line">  <span class="attr">inputs:</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">&#x27;custom&#x27;</span></span><br><span class="line">    <span class="attr">workingDir:</span> <span class="string">&#x27;$(Build.Repository.LocalPath)&#x27;</span> <span class="comment">#replace with the package.json folder</span></span><br><span class="line">    <span class="attr">customCommand:</span> <span class="string">&#x27;run build export $(Build.Repository.LocalPath) /subscriptions/b0d9c807-a2f1-4580-99a8-5333e4ad63c8/resourceGroups/lab_tom_adf_learning/providers/Microsoft.DataFactory/factories/tomADFLearning202211 &quot;ArmTemplate&quot;&#x27;</span></span><br><span class="line"><span class="comment">#For using preview that allows you to only stop/ start triggers that are modified, please comment out the above line and uncomment the below line. Make sure the package.json contains the build-preview command. </span></span><br><span class="line">    <span class="comment">#customCommand: &#x27;run build-preview export $(Build.Repository.LocalPath) /subscriptions/222f1459-6ebd-4896-82ab-652d5f6883cf/resourceGroups/GartnerMQ2021/providers/Microsoft.DataFactory/factories/Dev-GartnerMQ2021-DataFactory &quot;ArmTemplate&quot;&#x27;</span></span><br><span class="line">  <span class="attr">displayName:</span> <span class="string">&#x27;Validate and Generate ARM template&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Publish the artifact to be used as a source for a release pipeline.</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">task:</span> <span class="string">PublishPipelineArtifact@1</span></span><br><span class="line">  <span class="attr">inputs:</span></span><br><span class="line">    <span class="attr">targetPath:</span> <span class="string">&#x27;$(Build.Repository.LocalPath)/ArmTemplate&#x27;</span> <span class="comment">#replace with the package.json folder</span></span><br><span class="line">    <span class="attr">artifact:</span> <span class="string">&#x27;ArmTemplates&#x27;</span></span><br><span class="line">    <span class="attr">publishLocation:</span> <span class="string">&#x27;pipeline&#x27;</span> </span><br></pre></td></tr></table></figure>
+
+<h4 id="Azure-Pipeline-Release-Error-Log"><a href="#Azure-Pipeline-Release-Error-Log" class="headerlink" title="Azure Pipeline Release Error Log"></a>Azure Pipeline Release Error Log</h4><ul>
+<li><p><strong>Example 1</strong></p>
+  <figure class="highlight plaintext"><figcaption><span>log</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2024-04-21T12:55:32.5530184Z There were errors in your deployment. Error code: DeploymentFailed.</span><br><span class="line">2024-04-21T12:55:32.5585153Z ##[error]At least one resource deployment operation failed. Please list deployment operations for details. Please see https://aka.ms/arm-deployment-operations for usage details.</span><br><span class="line">2024-04-21T12:55:32.5588694Z ##[error]Details:</span><br><span class="line">2024-04-21T12:55:32.5591516Z ##[error]ManagedIdentityRequiredToCreateLinkedIntegrationRuntime: Managed identity is required when creating linked integration runtime &#x27;selfHostIR-Linked-From-tom-case1202-adf&#x27; under &#x27;tomADFLearning202211&#x27;. Please specify a managed identity via credential object.</span><br><span class="line">2024-04-21T12:55:32.5594890Z ##[error]Check out the troubleshooting guide to see if your issue is addressed: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-resource-group-deployment?view=azure-devops#troubleshooting</span><br><span class="line">2024-04-21T12:55:32.5602466Z ##[error]Task failed while creating or updating the template deployment.</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>Fix</strong><br>  <img src="/2024/04/20/ADF-CI-CD/Snipaste_2024-04-27_21-41-18.png" alt="package.json"></p>
+</li>
+<li><p><strong>Example 2</strong></p>
+  <figure class="highlight plaintext"><figcaption><span>log</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2024-04-27T01:10:18.9970828Z There were errors in your deployment. Error code: DeploymentFailed.</span><br><span class="line">2024-04-27T01:10:19.0016363Z ##[error]At least one resource deployment operation failed. Please list deployment operations for details. Please see https://aka.ms/arm-deployment-operations for usage details.</span><br><span class="line">2024-04-27T01:10:19.0018381Z ##[error]Details:</span><br><span class="line">2024-04-27T01:10:19.0020654Z ##[error]UnauthorizedIntegrationRuntimeAccess: Access denied. Unable to access shared integration runtime &#x27;selfHostIR&#x27;. Please check whether this resource has been granted permission by the shared integration runtime</span><br><span class="line">2024-04-27T01:10:19.0022512Z ##[error]Check out the troubleshooting guide to see if your issue is addressed: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-resource-group-deployment?view=azure-devops#troubleshooting</span><br><span class="line">2024-04-27T01:10:19.0026838Z ##[error]Task failed while creating or updating the template deployment.</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>Fix</strong></p>
+<p>  <img src="/2024/04/20/ADF-CI-CD/Snipaste_2024-04-27_21-47-54.png" alt="package.json"></p>
+</li>
+<li><p><strong>Example 3</strong></p>
+  <figure class="highlight plaintext"><figcaption><span>log</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2024-04-27T14:23:30.4596042Z There were errors in your deployment. Error code: DeploymentFailed.</span><br><span class="line">2024-04-27T14:23:30.4649363Z ##[error]At least one resource deployment operation failed. Please list deployment operations for details. Please see https://aka.ms/arm-deployment-operations for usage details.</span><br><span class="line">2024-04-27T14:23:30.4651888Z ##[error]Details:</span><br><span class="line">2024-04-27T14:23:30.4654468Z ##[error]InvalidResourceRequest: Invalid resource request. Resource type: &#x27;ManagedPrivateEndpoint&#x27;, Resource name: &#x27;AzureSqlDatabaseFromPrivateEndpoint&#x27; &#x27;Error: A managed private endpoint to the data source already exist.&#x27;.</span><br><span class="line">2024-04-27T14:23:30.4663001Z ##[error]Check out the troubleshooting guide to see if your issue is addressed: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-resource-group-deployment?view=azure-devops#troubleshooting</span><br><span class="line">2024-04-27T14:23:30.4670068Z ##[error]Task failed while creating or updating the template deployment.</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>Fix</strong></p>
+<ul>
+<li><strong>Managed private endpoint deployment</strong>.<br>Reference<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/data-factory/continuous-integration-delivery#best-practices-for-cicd">Best practices for CI&#x2F;CD</a></li>
+</ul>
+</li>
+</ul>
+<p>Reference<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-au/azure/data-factory/continuous-integration-delivery-improvements#continuous-deployment-improvements">Automated publishing for CI&#x2F;CD</a></p>
+<h2 id="hotfix"><a href="#hotfix" class="headerlink" title="hotfix"></a>hotfix</h2><p>Reference<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-au/azure/data-factory/continuous-integration-delivery-hotfix-environment">hotfix</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://tomliucc.github.io/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -181,7 +274,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-04-20 12:18:17" itemprop="dateModified" datetime="2024-04-20T12:18:17+08:00">2024-04-20</time>
+                <time title="Modified: 2024-04-20 22:00:22" itemprop="dateModified" datetime="2024-04-20T22:00:22+08:00">2024-04-20</time>
               </span>
 
           
@@ -207,6 +300,7 @@
 <ul>
 <li>Git configuration<br>ADF Studio<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-22-19.png" alt="tom-case1202-adf"><br>Azure DevOps Release Pipeline<br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-42-31.png" alt="Release Pipeline Artifacts"><br>  <img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_11-59-38.png" alt="Release Pipeline Stages"></li>
 </ul>
+<p>Official Document Reference<br><img src="/2024/04/19/DataFactoryPropertyUpdateNotSupported-Updating-property-type-is-not-supported/Snipaste_2024-04-20_13-13-23.png" alt="Integration runtimes and sharing"><br>Reference:<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-au/azure/data-factory/continuous-integration-delivery#best-practices-for-cicd">Integration runtimes and sharing</a><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-au/azure/data-factory/ci-cd-github-troubleshoot-guide">Updating property type isn’t supported</a></p>
 
       
     </div>
@@ -683,7 +777,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
